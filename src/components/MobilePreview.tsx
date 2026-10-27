@@ -1,0 +1,1 @@
+export default function MobilePreview({image,alt}:{image:string;alt:string}){return <section className="mobile-preview"><div><span>Designed for every screen</span><h2>The experience,<br/><em>in your hands.</em></h2></div><img src={image.replace('.jpg','-mobile.jpg')} alt={`${alt} on a mobile screen`} loading="lazy"/></section>}
