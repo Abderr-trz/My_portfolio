@@ -6,4 +6,4 @@ The spatial gallery is enabled on desktop when WebGL and full motion are availab
 
 Project images are screenshots of the live websites. The capture scripts are included to make refreshing them repeatable.
 
-Before publishing, add confirmed contact details and a canonical domain. The current gallery changes layout using the view controls; a scroll-pinned transition, context-loss recovery, richer project case studies, and comprehensive accessibility and Lighthouse audits remain to be completed.
+Before publishing, add confirmed contact details and a canonical domain. The current gallery changes layout using the view controls; a scroll-pinned transition, richer project case studies, and comprehensive accessibility and Lighthouse audits remain to be completed.
