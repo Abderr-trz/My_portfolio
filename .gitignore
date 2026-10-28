@@ -1,8 +1,10 @@
 node_modules
 .next
+.next-preview
 .env*
 *.tsbuildinfo
 desktop.png
 mobile.png
 gallery.png
 update-context.cjs
+reference-*.png

@@ -1,0 +1,8 @@
+'use client';
+import {Canvas,useFrame,useLoader} from '@react-three/fiber';
+import {Suspense,useEffect,useRef,useState} from 'react';
+import * as THREE from 'three';
+import {projects} from '@/data/projects';
+
+function OrbitCards(){const group=useRef<THREE.Group>(null);const textures=useLoader(THREE.TextureLoader,projects.map(p=>p.image));useFrame((_,delta)=>{if(group.current)group.current.rotation.y+=delta*.08});return <group ref={group}>{Array.from({length:15},(_,i)=>{const angle=i*Math.PI*2/15;const row=(i%3)-1;const radius=2.5;return <mesh key={i} position={[Math.sin(angle)*radius,row*1.15,Math.cos(angle)*radius]} rotation={[0,angle,0]}><planeGeometry args={[1.3,.9]}/><meshBasicMaterial map={textures[i%textures.length]} side={THREE.FrontSide} toneMapped={false}/></mesh>})}</group>}
+export default function ProjectOrbit(){const [enabled,setEnabled]=useState(false);useEffect(()=>{const media=window.matchMedia('(min-width:701px) and (prefers-reduced-motion: no-preference)');const update=()=>{try{const canvas=document.createElement('canvas');setEnabled(media.matches&&!!(canvas.getContext('webgl2')||canvas.getContext('webgl')))}catch{setEnabled(false)}};update();media.addEventListener('change',update);return()=>media.removeEventListener('change',update)},[]);return <div className="orbit" aria-hidden="true">{enabled?<Canvas camera={{position:[0,0,7],fov:45}} dpr={[1,1.5]} gl={{alpha:true,antialias:true}} onCreated={({gl})=>gl.domElement.addEventListener('webglcontextlost',()=>setEnabled(false),{once:true})}><Suspense fallback={null}><OrbitCards/></Suspense></Canvas>:projects.map((p,i)=><img key={p.slug} className={'orbit-image orbit-'+i} src={p.image} alt=""/>)}</div>}
