@@ -9,17 +9,17 @@ export default function Experience(){
  const root=useRef<HTMLElement>(null);const [reduced,setReduced]=useState(true);
  useEffect(()=>{gsap.registerPlugin(ScrollTrigger);const media=window.matchMedia('(prefers-reduced-motion: reduce), (max-width: 700px)');const update=()=>setReduced(media.matches);update();media.addEventListener('change',update);return()=>media.removeEventListener('change',update)},[]);
  useEffect(()=>{if(reduced||!root.current)return;const ctx=gsap.context(()=>{
-  const cards=gsap.utils.toArray<HTMLElement>('.sequence-card');const title=gsap.utils.toArray<HTMLElement>('.sequence-title-line');const cardWidth=()=>Math.min(window.innerWidth*.24,390);const gridWidth=()=>Math.min(window.innerWidth*.68,1050);const gridCard=()=>(gridWidth()-24)/3;
-  gsap.set(cards,{width:()=>cardWidth(),height:()=>cardWidth()*.695,xPercent:-50,yPercent:-50,left:'50%',top:'50%',transformPerspective:1200,force3D:true});
+  const cards=gsap.utils.toArray<HTMLElement>('.sequence-card');const title=gsap.utils.toArray<HTMLElement>('.sequence-title-line');const cardWidth=()=>Math.min(window.innerWidth*.24,390);const gridWidth=()=>Math.min(window.innerWidth*.68,1050);const gridCard=()=>(gridWidth()-24)/3;const angle=(i:number)=>(i-2)*.44;const radius=()=>cardWidth()/(2*Math.sin(.44/2));
+  gsap.set(cards,{width:()=>cardWidth(),height:()=>cardWidth()*.695,xPercent:-50,yPercent:-50,left:'50%',top:'50%',zIndex:(i)=>5-Math.abs(i-2),transformPerspective:1200,force3D:true});
   gsap.set(cards,{x:(i)=>Math.sin(i*1.25)*35,y:(i)=>Math.cos(i*1.1)*28,rotationY:(i)=>i*28-55,rotationZ:(i)=>i*8-16,scale:.13,opacity:0});
   gsap.set('.ribbon-tail',{xPercent:-80,yPercent:100,rotation:-28,scale:.8,opacity:0});
   const timeline=gsap.timeline({scrollTrigger:{id:'portfolio-sequence',trigger:root.current,start:'top top',end:()=>`+=${Math.max(1500,window.innerHeight*2.4)}`,pin:true,scrub:true,invalidateOnRefresh:true}});
   timeline.to(cards,{opacity:1,duration:.15,stagger:.015},0)
-   .to(cards,{x:(i)=>(i-2)*cardWidth()*1.02,y:(i)=>Math.pow(i-2,2)*10+15,rotationY:(i)=>(i-2)*-10,rotationZ:(i)=>(i-2)*-2,scale:1,duration:.9,stagger:.025,ease:'none'},.12)
+   .to(cards,{x:(i)=>Math.sin(angle(i))*radius()*(1-(Math.cos(angle(i))-1)*radius()/1200),y:(i)=>(2-Math.abs(i-2))*28-10,z:(i)=>(Math.cos(angle(i))-1)*radius(),rotationY:(i)=>-angle(i)*180/Math.PI,rotationZ:(i)=>(i-2)*-3,scale:1,duration:.9,stagger:.025,ease:'none'},.12)
    .to(title,{opacity:.15,duration:.5},.18)
    .to('.ribbon-tail',{opacity:1,xPercent:-20,yPercent:20,rotation:-18,scale:1,duration:.55,ease:'none'},.25)
    .to('.ribbon-tail',{xPercent:20,yPercent:-35,rotation:-10,opacity:0,duration:.65,ease:'none'},.8)
-   .to(cards,{x:(i)=>-gridWidth()/2+(i%3)*(gridCard()+12)+gridCard()/2,y:(i)=>-gridCard()*.695-12+Math.floor(i/3)*(gridCard()*.695+12)+gridCard()*.695/2,width:()=>gridCard(),height:()=>gridCard()*.695,rotationY:0,rotationZ:0,scale:1,duration:1,ease:'none'},1.5)
+   .to(cards,{x:(i)=>-gridWidth()/2+(i%3)*(gridCard()+12)+gridCard()/2,y:(i)=>-gridCard()*.695-12+Math.floor(i/3)*(gridCard()*.695+12)+gridCard()*.695/2,z:0,width:()=>gridCard(),height:()=>gridCard()*.695,rotationY:0,rotationZ:0,scale:1,duration:1,ease:'none'},1.5)
    .to(title,{opacity:0,y:-35,duration:.45},1.45)
    .to('.sequence-caption',{opacity:1,duration:.4},2.1)
    .to('.sequence-overlay',{scaleY:1,duration:.55,ease:'power2.inOut'},2.8);
