@@ -2,6 +2,7 @@ node_modules
 .next
 .next-preview
 .next-circle
+.next-layout
 .env*
 *.tsbuildinfo
 desktop.png
