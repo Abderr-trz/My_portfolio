@@ -18,7 +18,7 @@ export default function Experience(){
    .to(cards,{x:(i)=>ringX(angle(i)),y:(i)=>ringY(angle(i)),z:(i)=>depth(angle(i)),rotationY:(i)=>-angle(i)*180/Math.PI,rotationZ:(i)=>(i-2)*-2,scale:1,duration:.9,stagger:.025,ease:'none'},.12)
    .to(back,{x:(i)=>ringX(backAngle(i))*.72,y:(i)=>ringY(backAngle(i))+35,z:(i)=>depth(backAngle(i)),rotationY:(i)=>180-backAngle(i)*180/Math.PI,rotationZ:(i)=>(i-2)*2,scale:.72,opacity:1,duration:.9,stagger:.025,ease:'none'},.12)
    .to('.sequence-cards',{rotation:-7,duration:.9,ease:'none'},.12)
-   .to(title,{opacity:.15,duration:.5},.18)
+   .to(title,{opacity:.15,x:(i)=>i===0?-65:65,duration:.65,ease:'none'},.18)
    .to(intro,{y:()=>Math.max(0,window.innerHeight-100-intro.getBoundingClientRect().bottom+Number(gsap.getProperty(intro,'y'))),duration:.25,ease:'none'},0)
    .to(back,{opacity:0,duration:.35,ease:'none'},1.25)
    .to('.sequence-cards',{rotation:0,duration:1,ease:'none'},1.5)
