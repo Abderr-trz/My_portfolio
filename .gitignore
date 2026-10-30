@@ -4,6 +4,7 @@ node_modules
 .next-circle
 .next-layout
 .next-ring
+.next-motion
 ring-preview.png
 .env*
 *.tsbuildinfo
