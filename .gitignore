@@ -3,6 +3,8 @@ node_modules
 .next-preview
 .next-circle
 .next-layout
+.next-ring
+ring-preview.png
 .env*
 *.tsbuildinfo
 desktop.png
